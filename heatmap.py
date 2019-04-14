@@ -98,11 +98,11 @@ def heatmap(x, y, **kwargs):
         ax = plt.subplot(plot_grid[:,-1]) # Use the rightmost column of the plot
 
         col_x = [0]*len(palette) # Fixed x coordinate for the bars
-        y=np.linspace(color_min, color_max, n_colors) # y coordinates for each of the n_colors bars
+        bar_y=np.linspace(color_min, color_max, n_colors) # y coordinates for each of the n_colors bars
 
-        bar_height = y[1] - y[0]
+        bar_height = bar_y[1] - bar_y[0]
         ax.barh(
-            bottom=y,
+            y=bar_y,
             width=[5]*len(palette), # Make bars 5 units wide
             left=col_x, # Make bars start at 0
             height=bar_height,
@@ -113,7 +113,7 @@ def heatmap(x, y, **kwargs):
         ax.grid(False) # Hide grid
         ax.set_facecolor('white') # Make background white
         ax.set_xticks([]) # Remove horizontal ticks
-        ax.set_yticks(np.linspace(min(y), max(y), 3)) # Show vertical ticks for min, middle and max
+        ax.set_yticks(np.linspace(min(bar_y), max(bar_y), 3)) # Show vertical ticks for min, middle and max
         ax.yaxis.tick_right() # Show vertical ticks on the right 
 
 
