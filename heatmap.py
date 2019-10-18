@@ -62,13 +62,16 @@ def heatmap(x, y, **kwargs):
         y_names = [t for t in sorted(set([v for v in y]))]
     y_to_num = {p[1]:p[0] for p in enumerate(y_names)}
 
-    plot_grid = plt.GridSpec(1, 15, hspace=0.2, wspace=0.1) # Setup a 1x10 grid
+    plot_grid = kwargs['plot_grid']
+    if plot_grid is None:
+        # setup a default gridspec
+        plot_grid = plt.GridSpec(1, 15, hspace=0.2, wspace=0.1) # Setup a 1x15 grid
     ax = plt.subplot(plot_grid[:,:-1]) # Use the left 14/15ths of the grid for the main plot
 
     marker = kwargs.get('marker', 's')
 
     kwargs_pass_on = {k:v for k,v in kwargs.items() if k not in [
-         'color', 'palette', 'color_range', 'size', 'size_range', 'size_scale', 'marker', 'x_order', 'y_order'
+         'color', 'palette', 'color_range', 'size', 'size_range', 'size_scale', 'marker', 'x_order', 'y_order', 'plot_grid'
     ]}
 
     ax.scatter(
@@ -117,7 +120,7 @@ def heatmap(x, y, **kwargs):
         ax.yaxis.tick_right() # Show vertical ticks on the right 
 
 
-def corrplot(data, size_scale=500, marker='s'):
+def corrplot(data, size_scale=500, marker='s', plot_grid=None):
     corr = pd.melt(data.reset_index(), id_vars='index')
     corr.columns = ['x', 'y', 'value']
     heatmap(
@@ -128,6 +131,7 @@ def corrplot(data, size_scale=500, marker='s'):
         marker=marker,
         x_order=data.columns,
         y_order=data.columns[::-1],
-        size_scale=size_scale
+        size_scale=size_scale,
+        plot_grid=plot_grid
     )
 
