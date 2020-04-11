@@ -1,4 +1,7 @@
 __pycache__
 .ipynb_checkpoints
+example_pkg_heatmapz.egg-info
+dist
+build
 
 
