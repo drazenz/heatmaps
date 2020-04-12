@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
 	name="heatmapz",
-	version="0.0.1",
+	version="0.0.3",
 	author="Drazen Zaric",
 	author_email="drazen.zaric@gmail.com",
 	description="Create heatmaps with shapes and size as a parameter",
 	long_description=long_description,
 	long_description_content_type="text/markdown",
-	url="https://github.com/drazenez/heatmap",
+	url="https://github.com/drazenz/heatmap",
 	packages=setuptools.find_packages(),
 	classifiers=[
 		"Programming Language :: Python :: 3",

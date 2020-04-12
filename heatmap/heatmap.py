@@ -68,7 +68,7 @@ def heatmap(x, y, **kwargs):
     marker = kwargs.get('marker', 's')
 
     kwargs_pass_on = {k:v for k,v in kwargs.items() if k not in [
-         'color', 'palette', 'color_range', 'size', 'size_range', 'size_scale', 'marker', 'x_order', 'y_order'
+         'color', 'palette', 'color_range', 'size', 'size_range', 'size_scale', 'marker', 'x_order', 'y_order', 'xlabel', 'ylabel'
     ]}
 
     ax.scatter(
@@ -92,6 +92,9 @@ def heatmap(x, y, **kwargs):
     ax.set_xlim([-0.5, max([v for v in x_to_num.values()]) + 0.5])
     ax.set_ylim([-0.5, max([v for v in y_to_num.values()]) + 0.5])
     ax.set_facecolor('#F1F1F1')
+
+    ax.set_xlabel(kwargs.get('xlabel', ''))
+    ax.set_ylabel(kwargs.get('ylabel', ''))
 
     # Add color legend on the right side of the plot
     if color_min < color_max:
@@ -118,7 +121,7 @@ def heatmap(x, y, **kwargs):
 
 
 def corrplot(data, size_scale=500, marker='s'):
-    corr = pd.melt(data.reset_index(), id_vars='index')
+    corr = pd.melt(data.reset_index(), id_vars='index').replace(np.nan, 0)
     corr.columns = ['x', 'y', 'value']
     heatmap(
         corr['x'], corr['y'],
