@@ -30,6 +30,7 @@ Then you can use the following imports:
 
 ## Reference
 
+---
 ### **`heatmap(x, y, **kwargs)`**
 
 **Parameters**:
@@ -62,6 +63,7 @@ Then you can use the following imports:
 
 **`ylabel`** : Label for the y-axis. Default is none.
 
+---
 
 ### **`corrplot(data, size_scale=500, marker='s')`**
 
