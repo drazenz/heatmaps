@@ -3,5 +3,6 @@ __pycache__
 example_pkg_heatmapz.egg-info
 dist
 build
+heatmapz.egg-info/
 
 
