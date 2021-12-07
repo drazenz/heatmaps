@@ -86,7 +86,10 @@ def heatmap(x, y, **kwargs):
         **kwargs_pass_on
     )
     ax.set_xticks([v for k,v in x_to_num.items()])
-    ax.set_xticklabels([k for k in x_to_num], rotation=x_rotation, horizontalalignment='right')
+    if x_rotation == 90:
+        ax.set_xticklabels([k for k in x_to_num], rotation=90, horizontalalignment='center')
+    else:
+        ax.set_xticklabels([k for k in x_to_num], rotation=x_rotation, horizontalalignment='right')
     ax.set_yticks([v for k,v in y_to_num.items()])
     ax.set_yticklabels([k for k in y_to_num])
 
