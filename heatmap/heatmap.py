@@ -61,6 +61,12 @@ def heatmap(x, y, **kwargs):
     else:
         y_names = [t for t in sorted(set([v for v in y]))]
     y_to_num = {p[1]:p[0] for p in enumerate(y_names)}
+    
+    # rotation of x-axis labels
+    if 'x_rotation' in kwargs:
+        x_rotation = kwargs['x_rotation']
+    else:
+        x_rotation = 45
 
     plot_grid = plt.GridSpec(1, 15, hspace=0.2, wspace=0.1) # Setup a 1x10 grid
     ax = plt.subplot(plot_grid[:,:-1]) # Use the left 14/15ths of the grid for the main plot
@@ -68,7 +74,7 @@ def heatmap(x, y, **kwargs):
     marker = kwargs.get('marker', 's')
 
     kwargs_pass_on = {k:v for k,v in kwargs.items() if k not in [
-         'color', 'palette', 'color_range', 'size', 'size_range', 'size_scale', 'marker', 'x_order', 'y_order', 'xlabel', 'ylabel'
+         'color', 'palette', 'color_range', 'size', 'size_range', 'size_scale', 'marker', 'x_order', 'y_order', 'xlabel', 'ylabel', 'x_rotation'
     ]}
 
     ax.scatter(
@@ -80,7 +86,7 @@ def heatmap(x, y, **kwargs):
         **kwargs_pass_on
     )
     ax.set_xticks([v for k,v in x_to_num.items()])
-    ax.set_xticklabels([k for k in x_to_num], rotation=45, horizontalalignment='right')
+    ax.set_xticklabels([k for k in x_to_num], rotation=x_rotation, horizontalalignment='right')
     ax.set_yticks([v for k,v in y_to_num.items()])
     ax.set_yticklabels([k for k in y_to_num])
 
@@ -120,7 +126,7 @@ def heatmap(x, y, **kwargs):
         ax.yaxis.tick_right() # Show vertical ticks on the right 
 
 
-def corrplot(data, size_scale=500, marker='s'):
+def corrplot(data, size_scale=500, marker='s', x_rotation=45):
     corr = pd.melt(data.reset_index(), id_vars='index').replace(np.nan, 0)
     corr.columns = ['x', 'y', 'value']
     heatmap(
@@ -131,6 +137,7 @@ def corrplot(data, size_scale=500, marker='s'):
         marker=marker,
         x_order=data.columns,
         y_order=data.columns[::-1],
-        size_scale=size_scale
+        size_scale=size_scale,
+        x_rotation=x_rotation
     )
 
